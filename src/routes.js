@@ -13,6 +13,7 @@ import DashboardAppPage from './pages/DashboardAppPage';
 // ----------------------------------------------------------------------
 
 export default function Router() {
+
   const routes = useRoutes([
     {
       path: '/dashboard',
@@ -40,7 +41,7 @@ export default function Router() {
     {
       path: '*',
       element: <Navigate to="/404" replace />,
-    },
+    }
   ]);
 
   return routes;

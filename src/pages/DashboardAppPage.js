@@ -17,6 +17,7 @@ import {
   AppCurrentSubject,
   AppConversionRates,
 } from '../sections/@dashboard/app';
+import AppPosts from '../sections/@dashboard/app/AppPosts';
 
 // ----------------------------------------------------------------------
 
@@ -141,6 +142,11 @@ export default function DashboardAppPage() {
             />
           </Grid>
 
+
+          <Grid item xs={12}>
+            <AppPosts />
+          </Grid>
+          
           <Grid item xs={12} md={6} lg={8}>
             <AppNewsUpdate
               title="News Update"

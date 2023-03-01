@@ -1,10 +1,11 @@
-import { useState } from 'react';
-import { Outlet } from 'react-router-dom';
+import { useContext, useEffect, useState } from 'react';
+import { Outlet, useNavigate } from 'react-router-dom';
 // @mui
 import { styled } from '@mui/material/styles';
 //
 import Header from './header';
 import Nav from './nav';
+import { AuthContext } from '../../context/AuthContext';
 
 // ----------------------------------------------------------------------
 
@@ -34,7 +35,17 @@ const Main = styled('div')(({ theme }) => ({
 
 export default function DashboardLayout() {
   const [open, setOpen] = useState(false);
+  const { isLoggedIn } = useContext(AuthContext);
+  const navigate = useNavigate();
 
+  useEffect(() => {
+    console.log('DashboardLayout');
+    if (!isLoggedIn) {
+      navigate('/login');
+    }
+  }, [isLoggedIn, navigate]);
+
+  if (!isLoggedIn) return null;
   return (
     <StyledRoot>
       <Header onOpenNav={() => setOpen(true)} />

@@ -1,3 +1,4 @@
+import { useContext } from 'react';
 import PropTypes from 'prop-types';
 // @mui
 import { styled } from '@mui/material/styles';
@@ -11,6 +12,7 @@ import Searchbar from './Searchbar';
 import AccountPopover from './AccountPopover';
 import LanguagePopover from './LanguagePopover';
 import NotificationsPopover from './NotificationsPopover';
+import { RTLContext } from '../../../context/RTLContext';
 
 // ----------------------------------------------------------------------
 
@@ -20,9 +22,11 @@ const HEADER_MOBILE = 64;
 
 const HEADER_DESKTOP = 92;
 
-const StyledRoot = styled(AppBar)(({ theme }) => ({
+const StyledRoot = styled(AppBar)(({ theme, isRTL }) => ({
   ...bgBlur({ color: theme.palette.background.default }),
   boxShadow: 'none',
+  left: isRTL ? 0 : 'auto',
+  right: isRTL ? 'auto' : 0,
   [theme.breakpoints.up('lg')]: {
     width: `calc(100% - ${NAV_WIDTH + 1}px)`,
   },
@@ -43,13 +47,15 @@ Header.propTypes = {
 };
 
 export default function Header({ onOpenNav }) {
+  const { isRTL } = useContext(RTLContext);
   return (
-    <StyledRoot>
+    <StyledRoot isRTL={isRTL}>
       <StyledToolbar>
         <IconButton
           onClick={onOpenNav}
           sx={{
-            mr: 1,
+            mr: isRTL ? 0 : 1,
+            ml: isRTL ? 1 : 0,
             color: 'text.primary',
             display: { lg: 'none' },
           }}

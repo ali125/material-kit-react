@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useMemo } from 'react';
+import { useContext, useMemo } from 'react';
 // @mui
 import { CssBaseline } from '@mui/material';
 import { ThemeProvider as MUIThemeProvider, createTheme, StyledEngineProvider } from '@mui/material/styles';
@@ -10,6 +10,7 @@ import typography from './typography';
 import GlobalStyles from './globalStyles';
 import customShadows from './customShadows';
 import componentsOverride from './overrides';
+import { RTLContext } from '../context/RTLContext';
 
 // ----------------------------------------------------------------------
 
@@ -18,15 +19,17 @@ ThemeProvider.propTypes = {
 };
 
 export default function ThemeProvider({ children }) {
+  const { isRTL } = useContext(RTLContext);
   const themeOptions = useMemo(
     () => ({
+      direction: isRTL ? 'rtl' : 'ltr',
       palette,
       shape: { borderRadius: 6 },
       typography,
       shadows: shadows(),
       customShadows: customShadows(),
     }),
-    []
+    [isRTL]
   );
 
   const theme = createTheme(themeOptions);
